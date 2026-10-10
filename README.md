@@ -1,6 +1,8 @@
 # Kaggle Projects
 
-Repositório de estudos de machine learning com datasets e competições do [Kaggle](https://www.kaggle.com/).
+Repositório de estudos de machine learning aplicado à química, com datasets e competições do [Kaggle](https://www.kaggle.com/).
+
+Todos os projetos utilizam dados de análises químicas de amostras ou de experimentos no campo da química (por exemplo, parâmetros físico-químicos de água, composição de materiais, propriedades de compostos).
 
 Cada pasta de primeiro nível é um projeto independente, com ambiente próprio, código, relatório e README específico.
 

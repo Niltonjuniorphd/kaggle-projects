@@ -1,6 +1,15 @@
 # CLAUDE.md
 
-Repositório de estudos de machine learning com datasets do Kaggle. Cada pasta de primeiro nível é um projeto independente.
+Repositório de estudos de machine learning aplicado à química, com datasets do Kaggle. Cada pasta de primeiro nível é um projeto independente.
+
+## Domínio
+
+Todos os projetos usam dados de análises químicas de amostras ou de experimentos no campo da química.
+
+- Preservar e documentar as unidades de medida (por exemplo, mg CaCO₃/L, µS/cm, mol/L) nos nomes de variáveis, tabelas e gráficos.
+- Usar nomenclatura química correta (fórmulas, espécies, parâmetros físico-químicos).
+- Avaliar vazamento de informação (data leakage) entre variáveis quimicamente relacionadas, como medidas laboratoriais que definem o alvo.
+- Interpretar os resultados dos modelos à luz do contexto químico no `reports/report.md`.
 
 ## Estrutura
 
