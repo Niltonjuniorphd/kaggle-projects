@@ -1,11 +1,12 @@
 [project]
-name = "arg-river-water"
+name = "kaggle-projects"
 version = "0.1.0"
-description = "Add your description here"
+description = "Machine learning studies applied to chemistry with Kaggle datasets"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "ipykernel>=7.4.0",
+    "kagglehub>=1.0.2",
     "matplotlib>=3.11.2",
     "pandas>=3.0.6",
     "scikit-learn>=1.9.1",

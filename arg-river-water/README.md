@@ -15,9 +15,11 @@ unzip data/river-water-parameters.zip -d data/archive
 
 ## Execução
 
+A partir da raiz do repositório (ambiente uv compartilhado):
+
 ```bash
 uv sync
-uv run python src/scripts/model_pipeline.py
+uv run python arg-river-water/src/scripts/model_pipeline.py
 ```
 
 Relatório: [reports/report.md](reports/report.md).

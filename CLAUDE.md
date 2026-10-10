@@ -18,11 +18,11 @@ kaggle-projects/            # raiz: único repositório git
 ├── .gitignore              # regras comuns a todos os projetos
 ├── CLAUDE.md
 ├── README.md               # propósito do repositório e índice de projetos
+├── pyproject.toml          # dependências de todos os projetos (uv)
+├── uv.lock
+├── .python-version
+├── .venv/                  # ambiente único, não versionado
 └── <projeto>/              # um projeto por dataset/competição
-    ├── pyproject.toml      # dependências do projeto (uv)
-    ├── uv.lock
-    ├── .python-version
-    ├── .venv/              # não versionado
     ├── README.md           # link do dataset e instruções de download
     ├── data/               # não versionado (baixado do Kaggle)
     ├── src/scripts/        # scripts de EDA e modelagem
@@ -37,30 +37,29 @@ Projetos existentes:
 
 ## Versionamento
 
-- O git fica somente na raiz. Não criar `.git` dentro dos projetos (`uv init` cria um por padrão; usar `--vcs none`).
+- O git fica somente na raiz. Não criar `.git` dentro dos projetos.
 - As pastas `<projeto>/data/` são ignoradas pelo `.gitignore` da raiz. O README de cada projeto deve indicar a fonte e como baixar os dados.
 - Mensagens de commit prefixadas com o nome do projeto, por exemplo: `arg-river-water: ajusta pipeline`.
 
-## Ambientes (uv)
+## Ambiente (uv)
 
-Cada projeto tem seu próprio ambiente uv. Não existe workspace nem `pyproject.toml` na raiz.
+Um único ambiente uv na raiz atende a todos os projetos: `pyproject.toml`, `uv.lock`, `.python-version` e `.venv/` ficam somente na raiz. Os projetos não têm arquivos uv próprios.
 
-- Executar os comandos uv **dentro da pasta do projeto**, ou usar `--directory`:
-  - `uv sync --directory arg-river-water`
-  - `uv add --directory arg-river-water <pacote>`
-  - `uv run --directory arg-river-water python src/scripts/model_pipeline.py`
-- Nunca adicionar dependências de um projeto em outro.
+- O uv localiza o `pyproject.toml` da raiz a partir de qualquer subpasta; não é necessário ativar ou desativar ambientes ao trocar de projeto.
+- Comandos (de qualquer pasta do repositório):
+  - `uv sync`
+  - `uv add <pacote>`
+  - `uv run python arg-river-water/src/scripts/model_pipeline.py`
+- No VS Code, usar o interpretador `.venv/bin/python` da raiz.
+- Nunca executar `uv init` dentro de um projeto.
 
 ### Criar um novo projeto
 
 ```bash
-uv init --vcs none --python 3.14 <projeto>
-cd <projeto>
-uv add pandas scikit-learn matplotlib seaborn ipykernel
-mkdir -p data src/scripts reports/figures
+mkdir -p <projeto>/{data,src/scripts,reports/figures}
+touch <projeto>/README.md <projeto>/reports/report.md
+uv add <pacotes-adicionais>   # somente se necessário
 ```
-
-Remover o `main.py` gerado pelo `uv init` caso não seja utilizado.
 
 Ao criar um projeto, preencher o `README.md` do projeto (descrição, fonte dos dados, execução) e adicionar uma linha na tabela de projetos do `README.md` da raiz.
 
