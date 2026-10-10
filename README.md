@@ -19,8 +19,10 @@ kaggle-projects/
 ├── README.md               # este arquivo
 ├── pyproject.toml          # dependências de todos os projetos (uv)
 ├── uv.lock
+├── src/scripts/            # módulos compartilhados (ex.: download de datasets)
 └── <projeto>/
     ├── README.md           # descrição, fonte dos dados e instruções de execução
+    ├── fetch-data.py       # baixa/atualiza o dataset do Kaggle em data/
     ├── data/               # dados do Kaggle (não versionados)
     ├── src/scripts/        # EDA e modelagem
     └── reports/            # relatório e figuras
@@ -28,7 +30,7 @@ kaggle-projects/
 
 - **Versionamento:** um único repositório git na raiz.
 - **Ambiente:** um único ambiente [uv](https://docs.astral.sh/uv/) na raiz, compartilhado por todos os projetos.
-- **Dados:** não são versionados; o README de cada projeto indica a fonte e como obtê-los.
+- **Dados:** não são versionados; cada projeto obtém a versão mais recente com `uv run python <projeto>/fetch-data.py`.
 
 ## Requisitos
 

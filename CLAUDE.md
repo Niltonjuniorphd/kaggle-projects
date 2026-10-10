@@ -22,8 +22,11 @@ kaggle-projects/            # raiz: único repositório git
 ├── uv.lock
 ├── .python-version
 ├── .venv/                  # ambiente único, não versionado
+├── src/scripts/            # módulos compartilhados entre projetos
+│   └── fetch_function.py   # fetch_dataset(): download de datasets do Kaggle
 └── <projeto>/              # um projeto por dataset/competição
     ├── README.md           # link do dataset e instruções de download
+    ├── fetch-data.py       # baixa/atualiza o dataset em data/
     ├── data/               # não versionado (baixado do Kaggle)
     ├── src/scripts/        # scripts de EDA e modelagem
     └── reports/
@@ -34,6 +37,16 @@ kaggle-projects/            # raiz: único repositório git
 Projetos existentes:
 
 - `arg-river-water/`: classificação da dureza da água de rio ([River Water Parameters](https://www.kaggle.com/datasets/natanaelferran/river-water-parameters/data)).
+- `real-time-water-quality-data/`: qualidade da água em tempo real ([Real-time Water Quality Data](https://www.kaggle.com/datasets/ivivan/real-time-water-quality-data)).
+
+## Download dos dados
+
+Cada projeto tem um `fetch-data.py` na sua raiz que importa `fetch_dataset` de `src/scripts/fetch_function.py` e define o handle do Kaggle (`dono/dataset`).
+
+- `fetch_dataset(handle, project_dir, data_dir='data', force_download=True)` baixa o dataset para `<project_dir>/<data_dir>`.
+- `force_download=True` por padrão: cada execução baixa novamente a versão mais recente.
+- O `fetch-data.py` adiciona `<raiz>/src` ao `sys.path` antes do import (`from scripts.fetch_function import fetch_dataset`).
+- Execução: `uv run python <projeto>/fetch-data.py`.
 
 ## Versionamento
 
@@ -58,6 +71,7 @@ Um único ambiente uv na raiz atende a todos os projetos: `pyproject.toml`, `uv.
 ```bash
 mkdir -p <projeto>/{data,src/scripts,reports/figures}
 touch <projeto>/README.md <projeto>/reports/report.md
+cp real-time-water-quality-data/fetch-data.py <projeto>/   # ajustar DATASET_HANDLE
 uv add <pacotes-adicionais>   # somente se necessário
 ```
 
