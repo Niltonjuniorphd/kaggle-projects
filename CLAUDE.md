@@ -8,6 +8,7 @@ Repositório de estudos de machine learning com datasets do Kaggle. Cada pasta d
 kaggle-projects/            # raiz: único repositório git
 ├── .gitignore              # regras comuns a todos os projetos
 ├── CLAUDE.md
+├── README.md               # propósito do repositório e índice de projetos
 └── <projeto>/              # um projeto por dataset/competição
     ├── pyproject.toml      # dependências do projeto (uv)
     ├── uv.lock
@@ -51,6 +52,8 @@ mkdir -p data src/scripts reports/figures
 ```
 
 Remover o `main.py` gerado pelo `uv init` caso não seja utilizado.
+
+Ao criar um projeto, preencher o `README.md` do projeto (descrição, fonte dos dados, execução) e adicionar uma linha na tabela de projetos do `README.md` da raiz.
 
 ## Convenções de código
 
