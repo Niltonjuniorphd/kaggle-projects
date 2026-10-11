@@ -7,17 +7,24 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 
-data_path = Path(__file__).resolve().parent / 'data' / 'Johnstone_river_coquette_point_joined.csv' if '__file__' in locals() else Path('data/Johnstone_river_coquette_point_joined.csv')
+data_path = Path(__file__).resolve().parent / 'data' / 'all_stations.parquet' if '__file__' in locals() else Path('data/all_stations.parquet')
 if not data_path.exists():
-    data_path = Path('real-time-water-quality-data/data/Johnstone_river_coquette_point_joined.csv')
+    data_path = Path('real-time-water-quality-data/data/all_stations.parquet')
 
-data = pd.read_csv(data_path)
+# Consolidated dataset: all stations concatenated, with a 'station' column.
+# Not every station has every sensor, so Q, Conductivity, NO3, Temp,
+# Turbidity and Level contain NaN for stations missing that probe.
+data = pd.read_parquet(data_path)
 data['log_Conductivity'] = np.log1p(data['Conductivity'])
+data['year'] = data['Timestamp'].dt.year
 
 # Reorder columns so log_Conductivity is right after Conductivity
 cols = [col for col in data.columns if col != 'log_Conductivity']
 cols.insert(cols.index('Conductivity') + 1, 'log_Conductivity')
 data = data[cols]
+
+#%%
+data.head()
 
 #%%
 data.info()
@@ -62,7 +69,10 @@ for col in ['Conductivity', 'log_Conductivity']:
 
 
 #%%
-sns.pairplot(data=data, 
-             vars=data.select_dtypes(include=[np.number]).columns, 
-             hue='Month')
-plt.show()
+# Sample rows for the pairplot: the consolidated dataset has ~295k rows
+# across 11 stations, too many for pairplot to render in a reasonable time.
+# pairplot_sample = data.sample(n=5000, random_state=0)
+# sns.pairplot(data=pairplot_sample,
+#              vars=pairplot_sample.select_dtypes(include=[np.number]).columns,
+#              hue='Month')
+# plt.show()
