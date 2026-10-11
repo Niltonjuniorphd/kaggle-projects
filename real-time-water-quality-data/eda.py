@@ -30,7 +30,7 @@ data.head()
 data.info()
 
 #%%
-data.describe()
+data.describe(include='all')
 
 
 #%%
@@ -76,3 +76,21 @@ for col in ['Conductivity', 'log_Conductivity']:
 #              vars=pairplot_sample.select_dtypes(include=[np.number]).columns,
 #              hue='Month')
 # plt.show()
+
+#%%
+station_cond_year = (data
+                     .groupby(['station', 'year'])['Conductivity']
+                     .mean()
+                    #  .reset_index()
+                     .unstack('station')  # rows: year, columns: one per station
+                     )
+
+ax = station_cond_year.plot(kind='line', marker='o', figsize=(12, 6))
+ax.set_title('Mean Conductivity by year and station')
+ax.set_xlabel('Year')
+ax.set_ylabel('Mean Conductivity (µS/cm)')
+ax.set_xticks(station_cond_year.index)
+ax.legend(title='Station', bbox_to_anchor=(1.02, 1), loc='upper left')
+plt.tight_layout()
+plt.show()
+# %%
