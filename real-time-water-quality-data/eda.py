@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import numpy as np
+import statsmodels.formula.api as smf
+
 
 data_path = Path(__file__).resolve().parent / 'data' / 'all_stations.parquet' if '__file__' in locals() else Path('data/all_stations.parquet')
 if not data_path.exists():
@@ -93,4 +95,37 @@ ax.set_xticks(station_cond_year.index)
 ax.legend(title='Station', bbox_to_anchor=(1.02, 1), loc='upper left')
 plt.tight_layout()
 plt.show()
+
+
+# %%
+cols = data.columns.drop([
+    'Timestamp', 
+    'station', 
+    'year', 
+    'Month', 
+    'Q',
+    'NO3'
+
+])
+
+MIN_OBS = 30  # minimum paired (NO3, predictor) observations to fit OLS
+
+# rows: predictor, columns: station
+results = pd.DataFrame(index=cols, dtype=float)
+
+for station in data['station'].unique():
+    station_data = data[data['station'] == station]
+
+    for col in cols:
+        # Not every station has every probe: skip pairs without enough data
+        n_obs = station_data[['NO3', col]].dropna().shape[0]
+        if n_obs < MIN_OBS:
+            results.loc[col, station] = np.nan
+            continue
+
+        lm = smf.ols(f'NO3 ~ {col}', data=station_data).fit()
+        results.loc[col, station] = lm.rsquared
+
+results
+
 # %%
