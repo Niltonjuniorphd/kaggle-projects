@@ -36,8 +36,10 @@ kaggle-projects/            # raiz: único repositório git
 
 Projetos existentes:
 
-- `arg-river-water/`: classificação da dureza da água de rio ([River Water Parameters](https://www.kaggle.com/datasets/natanaelferran/river-water-parameters/data)).
+- `argentina-river-water/`: classificação da dureza da água de rio ([River Water Parameters](https://www.kaggle.com/datasets/natanaelferran/river-water-parameters/data)).
 - `real-time-water-quality-data/`: qualidade da água em tempo real ([Real-time Water Quality Data](https://www.kaggle.com/datasets/ivivan/real-time-water-quality-data)).
+- `sisagua-gov-br/`: parâmetros básicos de controle da água para consumo humano do SISAGUA (Ministério da Saúde), baixados direto do portal de dados abertos (não é dataset do Kaggle); dados em `sisagua-gov-br/data/`.
+- `imp-paulo-notebooks/`: notebooks de estudo (cap. 3, métodos lineares).
 
 ## Download dos dados
 
@@ -52,7 +54,7 @@ Cada projeto tem um `fetch-data.py` na sua raiz que importa `fetch_dataset` de `
 
 - O git fica somente na raiz. Não criar `.git` dentro dos projetos.
 - As pastas `<projeto>/data/` são ignoradas pelo `.gitignore` da raiz. O README de cada projeto deve indicar a fonte e como baixar os dados.
-- Mensagens de commit prefixadas com o nome do projeto, por exemplo: `arg-river-water: ajusta pipeline`.
+- Mensagens de commit prefixadas com o nome do projeto, por exemplo: `argentina-river-water: ajusta pipeline`.
 
 ## Ambiente (uv)
 
@@ -62,7 +64,7 @@ Um único ambiente uv na raiz atende a todos os projetos: `pyproject.toml`, `uv.
 - Comandos (de qualquer pasta do repositório):
   - `uv sync`
   - `uv add <pacote>`
-  - `uv run python arg-river-water/src/scripts/model_pipeline.py`
+  - `uv run python argentina-river-water/src/scripts/model_pipeline.py`
 - No VS Code, usar o interpretador `.venv/bin/python` da raiz.
 - Nunca executar `uv init` dentro de um projeto.
 

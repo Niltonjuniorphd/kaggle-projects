@@ -10,7 +10,10 @@ Cada pasta de primeiro nível é um projeto independente, com ambiente próprio,
 
 | Projeto | Tarefa | Dataset |
 |---|---|---|
-| [arg-river-water](arg-river-water/) | Classificação da dureza da água de rio | [River Water Parameters](https://www.kaggle.com/datasets/natanaelferran/river-water-parameters/data) |
+| [argentina-river-water](argentina-river-water/) | Classificação da dureza da água de rio | [River Water Parameters](https://www.kaggle.com/datasets/natanaelferran/river-water-parameters/data) |
+| [real-time-water-quality-data](real-time-water-quality-data/) | Qualidade da água em tempo real | [Real-time Water Quality Data](https://www.kaggle.com/datasets/ivivan/real-time-water-quality-data) |
+| [sisagua-gov-br](sisagua-gov-br/) | Parâmetros básicos de controle da água para consumo humano (2026) | [SISAGUA – Ministério da Saúde](https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/SISAGUA/controle_mensal_parametros_basicos_2026_csv.zip) |
+| [imp-paulo-notebooks](imp-paulo-notebooks/) | Notebooks de estudo (cap. 3: métodos lineares) | — |
 
 ## Organização
 
