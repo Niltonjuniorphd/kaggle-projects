@@ -129,3 +129,16 @@ for station in data['station'].unique():
 results
 
 # %%
+g = sns.FacetGrid(
+    data, 
+    col="station", 
+    col_wrap=3, 
+    height=4, 
+    sharex=False, 
+    sharey=True,
+    hue="Level",
+)
+g.map(sns.scatterplot, "Turbidity", "NO3", alpha=.7, )
+g.add_legend()
+
+# %%
