@@ -27,19 +27,51 @@ def load_data_from_gov():
 data = pd.read_parquet('data/data.parquet')
 data.info()  # Load the DataFrame from the Parquet file  
 
-# %%
-data.head(50)
-
 #%%
 data['Parâmetro'].unique()
 data['Valor'].unique()
+data.head()
+
+
 
 #%%
-data['Valor'] = pd.to_numeric(data['Valor'], errors='coerce')
-(data
- .query('`Ano de referência` == 2026').head(50)
- .dropna(subset=['Valor'])
- .groupby(['Município', 'Parâmetro'])['Valor'].mean().unstack(1)
+data_b = data.drop(
+    columns=[
+        'Região Geográfica',
+        'UF',
+        'Regional de Saúde',
+        'Código IBGE',
+        # 'Município',
+        'Tipo da Instituição',
+        'Sigla da Instituição',
+        'Nome da Instituição',
+        'CNPJ da Instituição',
+        'Nome do escritório regional/local',
+        'CNPJ do escritório regional/local',
+        'Tipo da Forma de Abastecimento',
+        'Código Forma de abastecimento',
+        'Nome da Forma de Abastecimento',
+        'Nome da ETA / UTA',
+        'Tipo de Filtração',
+        'Ano de referência',
+        'Mês de referência',
+        'Ponto de Monitoramento',
+        # 'Parâmetro',
+        'Campo',
+        # 'Valor'
+    ]
 )
 
-#%%
+
+data_b['Valor'] = pd.to_numeric(data_b['Valor'], errors='coerce')
+abt = (data_b
+#  .query('`Ano de referência` == 2026').head(50)
+ .dropna(subset=['Valor'])
+ .groupby(['Município', 'Parâmetro'])['Valor']
+    .mean()
+    .unstack(1)
+)
+
+abt
+
+
